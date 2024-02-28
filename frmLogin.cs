@@ -196,5 +196,10 @@ namespace DBPROJECT
                 this.btnExit.PerformClick();
             }
         }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+
+        }
     } // class
 } // namespace

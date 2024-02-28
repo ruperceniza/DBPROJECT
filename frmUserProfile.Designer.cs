@@ -60,6 +60,7 @@ namespace DBPROJECT
             this.pictBoxUser.Size = new System.Drawing.Size(255, 242);
             this.pictBoxUser.TabIndex = 0;
             this.pictBoxUser.TabStop = false;
+            this.pictBoxUser.Click += new System.EventHandler(this.pictBoxUser_Click);
             // 
             // btnLoadPhoto
             // 
@@ -118,6 +119,7 @@ namespace DBPROJECT
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // label1
             // 

@@ -14,7 +14,7 @@ namespace DBPROJECT
 {
     public partial class frmUserProfile : Form
     {
-        long iduser; 
+        long iduser;
         String loginname;
         public frmUserProfile(long liduser, String lname)
         {
@@ -40,7 +40,7 @@ namespace DBPROJECT
         private void frmUserProfile_LoadUserData()
         {
 
-            if(Globals.glOpenSqlConn())
+            if (Globals.glOpenSqlConn())
             {
                 SqlCommand cmd = new SqlCommand("spGetUserProfile", Globals.sqlconn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -64,12 +64,13 @@ namespace DBPROJECT
                     this.txtSMTPHOST.Text = dt.Rows[0][2].ToString();
                     this.txtSMTPport.Text = dt.Rows[0][3].ToString();
                     this.pkrBirthdate.Value = Globals.glConvertBlankDate(dt.Rows[0][4].ToString());
-                    this.cbxGender.SelectedItem = Globals.glConvertBlankGender(dt.Rows[0][5].ToString());                      
+                    this.cbxGender.SelectedItem = Globals.glConvertBlankGender(dt.Rows[0][5].ToString());
                 }
 
             }
         }
-        private void frmUserProfile_GetPhotofromField() {
+        private void frmUserProfile_GetPhotofromField()
+        {
             if (Globals.glOpenSqlConn())
             {
                 SqlCommand cmd = new SqlCommand("select isnull(photo,'') from users where id=@liduser", Globals.sqlconn);
@@ -87,7 +88,7 @@ namespace DBPROJECT
                 }
                 else
                 {
-                    if(dt.Rows[0][0] != null) 
+                    if (dt.Rows[0][0] != null)
                     {
                         byte[] UserImg = (byte[])dt.Rows[0][0];
 
@@ -109,10 +110,10 @@ namespace DBPROJECT
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            if (csMessageBox.Show("Erase User Photo?","Please confirm.",MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (csMessageBox.Show("Erase User Photo?", "Please confirm.", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (Globals.glOpenSqlConn())
-                 {
+                {
                     SqlCommand cmd = new SqlCommand("spGetUserProfile", Globals.sqlconn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -120,8 +121,8 @@ namespace DBPROJECT
 
                     cmd.ExecuteNonQuery();
                     this.pictBoxUser.Image = null;
-                 }
-                    csMessageBox.Show("User Photo Erased", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                csMessageBox.Show("User Photo Erased", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -132,6 +133,32 @@ namespace DBPROJECT
             if (openPhoto.ShowDialog() == DialogResult.OK)
             {
                 pictBoxUser.Image = Image.FromFile(openPhoto.FileName);
+            }
+        }
+
+        private void pictBoxUser_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void frmUserProfile_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
+        }
+
+        private void EnableSaveButton(object sender, EventArgs e)
+        {
+            this.btnSave.Enabled = true;
+        }
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            this.btnSave.Enabled = false;
+
+        }
+
+        private void frmUserProfile_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.btnSave.Enabled)
+            {
             }
         }
     }
